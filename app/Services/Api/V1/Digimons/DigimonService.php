@@ -3,8 +3,8 @@
 namespace App\Services\Api\V1\Digimons;
 
 use App\Services\Api\V1\Digimons\Interfaces\DigimonServiceInterface;
-use App\Http\Resources\Digimons\DigimonResource;
-use App\Http\Resources\Digimons\DigimonDetailResource;
+use App\Http\Resources\Api\V1\Digimons\DigimonResource;
+use App\Http\Resources\Api\V1\Digimons\DigimonDetailResource;
 use App\Models\Api\V1\Digimons\Digimon;
 
 use Illuminate\Http\Response;
