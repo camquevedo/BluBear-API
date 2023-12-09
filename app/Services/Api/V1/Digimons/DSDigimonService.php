@@ -49,7 +49,6 @@ class DSDigimonService implements DSDigimonServiceInterface
 
     public function findAll($page)
     {
-        // dd($this->repository->findAll());
         try {
             return $this->repository->findAll($page);
         } catch (\Throwable $e) {

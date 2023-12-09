@@ -5,8 +5,8 @@ namespace App\Providers;
 use App\Repositories\Api\V1\Digimons\Interfaces\DigimonRepositoryInterface;
 use App\Repositories\Api\V1\Digimons\DigimonRepository;
 
-use App\Repositories\Api\V1\Users\User\Interfaces\UserRepositoryInterface;
-use App\Repositories\Api\V1\Users\User\UserRepository;
+use App\Repositories\Api\V1\Users\Interfaces\UserRepositoryInterface;
+use App\Repositories\Api\V1\Users\UserRepository;
 
 use Illuminate\Support\ServiceProvider;
 

@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(
     [
-        'prefix' => 'digimon',
+        'prefix' => 'digimons',
         'namespace' => 'Digimons',
         // 'middleware' => ['auth:sanctum', 'role:user'],
     ],

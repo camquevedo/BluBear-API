@@ -28,7 +28,6 @@ class DigimonRepository implements DigimonRepositoryInterface
         $url = $this->basePath . '/digimon?page=' . $page;
         $request = Http::get($url);
 
-        // dd($request->object());
         return $request->object();
     }
 

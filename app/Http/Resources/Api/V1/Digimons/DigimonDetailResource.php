@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\Digimons;
+namespace App\Http\Resources\Api\V1\Digimons;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 

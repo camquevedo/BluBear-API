@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Validator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +20,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Validator::extend('invalid_password_format', function ($attribute, $value, $parameters, $validator) {
+            $pattern = config('constants.global.passwordValidation');
+            return preg_match($pattern, $value);
+        });
     }
 }
