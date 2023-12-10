@@ -6,6 +6,7 @@ return [
     'getById' => 'GET_BY_ID_',
     'getByUid' => 'GET_BY_UID_',
     'getByParameter' => 'GET_BY_PARAMETER_',
+    'getByName' => 'GET_BY_NAME_',
     'create' => 'CREATE_',
     'update' => 'UPDATE_',
     'delete' => 'DELETE_',

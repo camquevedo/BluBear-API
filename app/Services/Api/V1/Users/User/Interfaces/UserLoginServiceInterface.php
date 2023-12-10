@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Api\V1\Users\Interfaces;
+namespace App\Services\Api\V1\Users\User\Interfaces;
 
 interface UserLoginServiceInterface
 {

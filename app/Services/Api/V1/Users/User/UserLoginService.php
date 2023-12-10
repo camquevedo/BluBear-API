@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Services\Api\V1\Users;
+namespace App\Services\Api\V1\Users\User;
 
-use App\Services\Api\V1\Users\Interfaces\UserLoginServiceInterface;
+use App\Services\Api\V1\Users\User\Interfaces\UserLoginServiceInterface;
 
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 use stdClass;
 use App\Exceptions\BaseException;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
@@ -73,7 +73,7 @@ class UserLoginService extends UserService implements UserLoginServiceInterface
     public function editPassword($id, $body)
     {
         $entity = $this->findPasswordById($id);
-        if (!$entity || $entity->social_media_id) {
+        if (!$entity) {
             return response()->json(null, Response::HTTP_NOT_FOUND);
         }
 
@@ -105,7 +105,7 @@ class UserLoginService extends UserService implements UserLoginServiceInterface
     public function sendResetPasswordEmail($body)
     {
         $entity = $this->findByEmail($body->email);
-        if (!$entity || $entity->social_media_id) {
+        if (!$entity) {
             return response()->json(null, Response::HTTP_NOT_FOUND);
         }
 
