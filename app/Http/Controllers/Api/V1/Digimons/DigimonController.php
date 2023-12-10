@@ -11,6 +11,7 @@ use Illuminate\Http\Response;
 // use Illuminate\Support\Facades\Validator;
 
 use App\Packages\ApiResponse\ApiResponseBuilder;
+use Inertia\Inertia;
 
 class DigimonController extends Controller
 {
@@ -51,6 +52,11 @@ class DigimonController extends Controller
             ->withData($data->items)
             ->withPagination($data->pagination)
             ->build();
+    }
+
+    public function index(Request $request) {
+        $digimons = $this->getAll($request);
+        return Inertia::render('Digimons/Index', ['digimons' => $digimons, 'page' => $page ?? 1]);
     }
 
     /**
