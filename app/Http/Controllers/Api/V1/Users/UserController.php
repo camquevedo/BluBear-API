@@ -13,6 +13,7 @@ use App\Packages\ApiResponse\ApiResponseBuilder;
 
 use App\Services\Api\V1\Users\User\Interfaces\UserServiceInterface;
 use App\Services\Api\V1\Users\User\Interfaces\UserLoginServiceInterface;
+use Inertia\Inertia;
 
 class UserController extends Controller
 {
@@ -157,6 +158,7 @@ class UserController extends Controller
      */
     public function create(Request $request)
     {
+        return 'hola';
         $parameters = $request->only(array_keys($this->properties));
         $validator = Validator::make($parameters, $this->properties);
         if ($validator->fails()) {
@@ -188,6 +190,10 @@ class UserController extends Controller
             )
             ->withData($data->items)
             ->build();
+    }
+
+    public function store () {
+        return Inertia::render('Users/Create');
     }
 
     /**
