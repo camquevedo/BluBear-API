@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Api\V1\Users;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Response;
+
+use Illuminate\Support\Facades\Validator;
 
 use App\Packages\ApiResponse\ApiResponseBuilder;
 
-use App\Services\Api\V1\Users\Interfaces\UserServiceInterface;
-use App\Services\Api\V1\Users\Interfaces\UserLoginServiceInterface;
+use App\Services\Api\V1\Users\User\Interfaces\UserServiceInterface;
+use App\Services\Api\V1\Users\User\Interfaces\UserLoginServiceInterface;
 
 class UserController extends Controller
 {
@@ -42,7 +44,7 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function getAll()
+    public function getAll(Request $request)
     {
         $serviceResponse = $this->service->getAll();
         $data = $serviceResponse->getData();
@@ -59,7 +61,7 @@ class UserController extends Controller
             ->withCode($serviceResponse->getStatusCode())
             ->withMessage(
                 config('constants.messages.success.listAll') .
-                $this->messageEntityName
+                    $this->messageEntityName
             )
             ->withData($data->items)
             ->withPagination($data->pagination)
@@ -71,13 +73,13 @@ class UserController extends Controller
      */
     public function getById(int $id)
     {
-        if ( !auth() && $id != auth()->user()->id ) {
+        if ($id != auth()->user()->id) {
             return ApiResponseBuilder::builder()
                 ->withCode(Response::HTTP_UNAUTHORIZED)
-                ->withMessage(config('constants.messages.error.validation'))
+                ->withMessage(config('constants.messages.error.entityNotOwned'))
                 ->build();
         }
-        
+
         $serviceResponse = $this->service->getById($id);
         $data = $serviceResponse->getData();
 
@@ -93,7 +95,7 @@ class UserController extends Controller
             ->withCode($serviceResponse->getStatusCode())
             ->withMessage(
                 config('constants.messages.success.list') .
-                $this->messageEntityName
+                    $this->messageEntityName
             )
             ->withData($data->items)
             ->build();
@@ -132,8 +134,8 @@ class UserController extends Controller
             return ApiResponseBuilder::builder()
                 ->withCode(
                     $serviceResponse
-                    ? $serviceResponse->getStatusCode()
-                    : Response::HTTP_NOT_FOUND
+                        ? $serviceResponse->getStatusCode()
+                        : Response::HTTP_NOT_FOUND
                 )
                 ->withMessage(config('constants.messages.error.entityNotFound'))
                 ->withData($data)
@@ -144,7 +146,7 @@ class UserController extends Controller
             ->withCode($serviceResponse->getStatusCode())
             ->withMessage(
                 config('constants.messages.success.listAll') .
-                $this->messageEntityName
+                    $this->messageEntityName
             )
             ->withData($data->items)
             ->build();
@@ -153,86 +155,94 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-     public function create(Request $request)
-     {
-         $parameters = $request->only(array_keys($this->properties));
-         $validator = Validator::make($parameters, $this->properties);
-         if ($validator->fails()) {
-             return ApiResponseBuilder::builder()
-                 ->withCode(Response::HTTP_BAD_REQUEST)
-                 ->withMessage(config('constants.messages.error.validation'))
-                 ->withData($validator->errors())
-                 ->build();
-         }
- 
-         $serviceResponse = $this->service->create(arrayToObject($parameters));
-         $data = $serviceResponse->getData();
- 
-         if ($serviceResponse->getStatusCode() != Response::HTTP_CREATED) {
-             return ApiResponseBuilder::builder()
-                 ->withCode($serviceResponse->getStatusCode())
-                 ->withMessage(
-                     config('constants.messages.error.entityNotCreated')
-                 )
-                 ->withData($data)
-                 ->build();
-         }
- 
-         return ApiResponseBuilder::builder()
-             ->withCode($serviceResponse->getStatusCode())
-             ->withMessage(
-                 config('constants.messages.success.save') .
-                 $this->messageEntityName
-             )
-             ->withData($data->items)
-             ->build();
-     }
+    public function create(Request $request)
+    {
+        $parameters = $request->only(array_keys($this->properties));
+        $validator = Validator::make($parameters, $this->properties);
+        if ($validator->fails()) {
+            return ApiResponseBuilder::builder()
+                ->withCode(Response::HTTP_BAD_REQUEST)
+                ->withMessage(config('constants.messages.error.validation'))
+                ->withData($validator->errors())
+                ->build();
+        }
+
+        $serviceResponse = $this->service->create(arrayToObject($parameters));
+        $data = $serviceResponse->getData();
+
+        if ($serviceResponse->getStatusCode() != Response::HTTP_CREATED) {
+            return ApiResponseBuilder::builder()
+                ->withCode($serviceResponse->getStatusCode())
+                ->withMessage(
+                    config('constants.messages.error.entityNotCreated')
+                )
+                ->withData($data)
+                ->build();
+        }
+
+        return ApiResponseBuilder::builder()
+            ->withCode($serviceResponse->getStatusCode())
+            ->withMessage(
+                config('constants.messages.success.save') .
+                    $this->messageEntityName
+            )
+            ->withData($data->items)
+            ->build();
+    }
 
     /**
      * Update the specified resource in storage.
      */
-     public function update($id, Request $request)
-     {
-         $parameters = $request->only(array_keys($this->properties));
-         $validator = Validator::make($parameters, $this->properties);
-         if ($validator->fails()) {
-             return ApiResponseBuilder::builder()
-                 ->withCode(Response::HTTP_BAD_REQUEST)
-                 ->withMessage(config('constants.messages.error.validation'))
-                 ->withData($validator->errors())
-                 ->build();
-         }
- 
-         $serviceResponse = $this->service->edit(
-             $id,
-             arrayToObject($parameters)
-         );
-         $data = $serviceResponse->getData();
- 
-         if ($serviceResponse->getStatusCode() != Response::HTTP_OK) {
-             return ApiResponseBuilder::builder()
-                 ->withCode($serviceResponse->getStatusCode())
-                 ->withMessage(
-                     config('constants.messages.error.entityNotUpdated')
-                 )
-                 ->withData($data)
-                 ->build();
-         }
- 
-         return ApiResponseBuilder::builder()
-             ->withCode($serviceResponse->getStatusCode())
-             ->withMessage(
-                 config('constants.messages.success.update') .
-                     $this->messageEntityName
-             )
-             ->withData($data->items)
-             ->build();
-     }
+    public function update($id, Request $request)
+    {
+        $remove = [
+            'details.email',
+            'properties.password',
+            'properties.passwordConfirmation',
+        ];
+        $properties = $this->properties;
+        $customProperties = array_diff_key($properties, array_flip($remove));
+
+        $parameters = $request->only(array_keys($customProperties));
+        $validator = Validator::make($parameters, $customProperties);
+        if ($validator->fails()) {
+            return ApiResponseBuilder::builder()
+                ->withCode(Response::HTTP_BAD_REQUEST)
+                ->withMessage(config('constants.messages.error.validation'))
+                ->withData($validator->errors())
+                ->build();
+        }
+
+        $serviceResponse = $this->service->edit(
+            $id,
+            arrayToObject($parameters)
+        );
+        $data = $serviceResponse->getData();
+
+        if ($serviceResponse->getStatusCode() != Response::HTTP_OK) {
+            return ApiResponseBuilder::builder()
+                ->withCode($serviceResponse->getStatusCode())
+                ->withMessage(
+                    config('constants.messages.error.entityNotUpdated')
+                )
+                ->withData($data)
+                ->build();
+        }
+
+        return ApiResponseBuilder::builder()
+            ->withCode($serviceResponse->getStatusCode())
+            ->withMessage(
+                config('constants.messages.success.update') .
+                    $this->messageEntityName
+            )
+            ->withData($data->items)
+            ->build();
+    }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function delete(int $id)
+    public function delete(Request $request, int $id)
     {
         if ($id == config('constants.global.defaultUserId')) {
             return ApiResponseBuilder::builder()
@@ -261,7 +271,7 @@ class UserController extends Controller
             ->withCode($serviceResponse->getStatusCode())
             ->withMessage(
                 config('constants.messages.success.delete') .
-                $this->messageEntityName
+                    $this->messageEntityName
             )
             ->withData($data->items)
             ->build();

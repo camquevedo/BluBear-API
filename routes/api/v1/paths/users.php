@@ -19,7 +19,7 @@ Route::group(
     [
         'prefix' => 'users',
         'namespace' => 'Users',
-        // 'middleware' => ['auth:sanctum', 'role:user'],
+        'middleware' => ['auth:sanctum', 'role:user'],
     ],
     function () {
         Route::get('/', [UserController::class, 'getAll']);
@@ -47,7 +47,7 @@ Route::group(
     function () {
         Route::post('/register', [UserController::class, 'create']);
 
-        Route::post('/', [UserLoginController::class, 'login']);
+        Route::post('/login', [UserLoginController::class, 'login']);
 
         Route::post(
             '/password/email', [

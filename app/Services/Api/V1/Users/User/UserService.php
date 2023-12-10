@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Services\Api\V1\Users;
+namespace App\Services\Api\V1\Users\User;
 
-use App\Services\Api\V1\Users\Interfaces\UserServiceInterface;
+use App\Services\Api\V1\Users\User\Interfaces\UserServiceInterface;
 use App\Http\Resources\Api\V1\Users\UserResource;
 use App\Models\Api\V1\Users\User;
+use App\Models\Api\V1\Users\UserRole;
 
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 use stdClass;
 
@@ -108,21 +110,37 @@ class UserService extends DSUserService implements UserServiceInterface
         $newEntity->last_name = $body->details->lastName;
         $newEntity->email = $body->details->email;
         $newEntity->password = $body->properties->password;
+        
+        $role = $this->findRoleByName('user');
 
-        static::sendMail(
-            NewUserMail::class,
-            [$newEntity->email],
-            [
-                'user' => $newEntity,
-            ]
-        );
+        $isSaved = DB::transaction(function () use ($newEntity, $role) {
+            $isSaved = $this->save($newEntity);
 
-        $accessToken = $this->createAuthToken($newEntity);
+            $newUserRole = new stdClass();
+            $newUserRole->role_id = $role->id;
+            $newUserRole->user_id = $newEntity->id;
+
+            $isSavedUserRole = $this->saveUserRole($newUserRole);
+            return $isSaved && $isSavedUserRole;
+        });
+        $newEntity->role = $role;
+
+        if ($isSaved) {
+            static::sendMail(
+                NewUserMail::class,
+                [$newEntity->email],
+                [
+                    'user' => $newEntity,
+                ]
+            );
+    
+            $accessToken = $this->createAuthToken($newEntity);
+        }
 
         $response = new stdClass();
         $response->items = [
-            'user' => $this->createResource($newEntity),
-            'token' => $accessToken,
+            'user' => $isSaved ? $this->createResource($newEntity) : null,
+            'token' => $accessToken ?? null,
         ];
 
         return response()->json($response, Response::HTTP_CREATED);
@@ -136,13 +154,6 @@ class UserService extends DSUserService implements UserServiceInterface
         $entity = [
             'first_name' => $body->details->firstName,
             'last_name' => $body->details->lastName,
-            'phone' => $body->details->phone,
-            'birthday' => formatDate($body->details->birthday),
-            'document_type_id' => $body->details->documentTypeId,
-            'document_number' => $body->details->documentNumber,
-            'is_receive_emails' => $body->properties->isReceiveEmails,
-            'company_name' => $body->company->name,
-            'company_document' => $body->company->document,
         ];
 
         $isUpdated = $this->update($id, $entity);

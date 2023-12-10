@@ -55,7 +55,7 @@ class UserLoginController extends UserController
             return ApiResponseBuilder::builder()
                 ->withCode(Response::HTTP_UNAUTHORIZED)
                 ->withMessage(
-                    config('constants.messages.error.validation')
+                    config('constants.messages.error.entityNotOwned')
                 )
                 ->withData(null)
                 ->build();

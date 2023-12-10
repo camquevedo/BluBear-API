@@ -19,10 +19,10 @@ class UserSeeder extends Seeder
             'last_name' => 'Chuck Norris',
             'email' => 'spadmin@mail.com',
             'email_verified_at' => now(),
-            'password' => bcrypt('secret'),
+            'password' => bcrypt('Secret1234*'),
             'remember_token' => Str::random(10),
         ]);
 
-        User::factory()->times(10)->create();
+        User::factory()->times(4)->create();
     }
 }

@@ -1,28 +1,28 @@
 <?php
 
-namespace App\Services\Api\V1\Users;
+namespace App\Services\Api\V1\Users\UserRole;
 
-use App\Services\Api\V1\Users\Interfaces\DSUserServiceInterface;
-use App\Repositories\Api\V1\Users\Interfaces\UserRepositoryInterface;
+use App\Services\Api\V1\Users\UserRole\Interfaces\DSUserRoleServiceInterface;
+use App\Repositories\Api\V1\Users\UserRole\Interfaces\UserRoleRepositoryInterface;
 
 use Illuminate\Http\Response;
 use App\Traits\LogsTrait;
 use App\Exceptions\BaseException;
 
-class DSUserService implements DSUserServiceInterface
+class DSUserRoleService implements DSUserRoleServiceInterface
 {
     use LogsTrait;
 
-    protected $actionCode = 'USER';
+    protected $actionCode = 'ROLE';
     protected $messageEntityName;
 
-    /** @var UserRepositoryInterface $repository */
+    /** @var UserRoleRepositoryInterface $repository */
     protected $repository;
 
     public function __construct(
-        UserRepositoryInterface $repository
+        UserRoleRepositoryInterface $repository,
     ) {
-        $this->messageEntityName = config('constants.messages.entities.user');
+        $this->messageEntityName = config('constants.messages.entities.role');
         $this->repository = $repository;
     }
 
@@ -48,58 +48,16 @@ class DSUserService implements DSUserServiceInterface
         }
     }
 
-    public function findById($id)
+    public function findByUserId($user_id)
     {
         try {
-            return $this->repository->findById($id);
+            return $this->repository->findByUserId($user_id);
         } catch (\Throwable $e) {
             $messageException = $e->getMessage();
 
             static::saveLog(
                 config('constants.actions.getById') . $this->actionCode,
-                [__FUNCTION__, $id],
-                $messageException
-            );
-
-            throw new BaseException(
-                Response::HTTP_INTERNAL_SERVER_ERROR,
-                config('constants.messages.error.list') . $this->messageEntityName,
-                $messageException
-            );
-        }
-    }
-
-    public function findByEmail($email)
-    {
-        try {
-            return $this->repository->findByEmail($email);
-        } catch (\Throwable $e) {
-            $messageException = $e->getMessage();
-
-            static::saveLog(
-                'GET_BY_EMAIL_' . $this->actionCode,
-                [__FUNCTION__, $email],
-                $messageException
-            );
-
-            throw new BaseException(
-                Response::HTTP_INTERNAL_SERVER_ERROR,
-                config('constants.messages.error.list') . $this->messageEntityName,
-                $messageException
-            );
-        }
-    }
-
-    public function findPasswordById($id)
-    {
-        try {
-            return $this->repository->findPasswordById($id);
-        } catch (\Throwable $e) {
-            $messageException = $e->getMessage();
-
-            static::saveLog(
-                config('constants.actions.getById') . $this->actionCode,
-                [__FUNCTION__, $id],
+                [__FUNCTION__, $user_id],
                 $messageException
             );
 
@@ -132,16 +90,16 @@ class DSUserService implements DSUserServiceInterface
         }
     }
 
-    public function update($id, $entity)
+    public function update($user_id, $rol_id, $entity)
     {
         try {
-            return $this->repository->update($id, $entity);
+            return $this->repository->update($user_id, $rol_id, $entity);
         } catch (\Throwable $e) {
             $messageException = $e->getMessage();
 
             static::saveLog(
                 config('constants.actions.update') . $this->actionCode,
-                [__FUNCTION__, $id, entityToString($entity)],
+                [__FUNCTION__, $user_id, $rol_id, entityToString($entity)],
                 $messageException
             );
 
@@ -153,16 +111,16 @@ class DSUserService implements DSUserServiceInterface
         }
     }
 
-    public function delete($id)
+    public function delete($user_id, $role_id)
     {
         try {
-            return $this->repository->delete($id);
+            return $this->repository->delete($user_id, $role_id);
         } catch (\Throwable $e) {
             $messageException = $e->getMessage();
 
             static::saveLog(
                 config('constants.actions.delete') . $this->actionCode,
-                [__FUNCTION__, $id],
+                [__FUNCTION__, $user_id, $role_id],
                 $messageException
             );
 

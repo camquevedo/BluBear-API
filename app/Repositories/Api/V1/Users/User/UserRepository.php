@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Repositories\Api\V1\Users;
+namespace App\Repositories\Api\V1\Users\User;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 use App\Models\Api\V1\Users\User;
-use App\Repositories\Api\V1\Users\Interfaces\UserRepositoryInterface;
+use App\Repositories\Api\V1\Users\User\Interfaces\UserRepositoryInterface;
 
 use stdClass;
 
@@ -24,9 +24,6 @@ class UserRepository implements UserRepositoryInterface
 
     public function findAll(): LengthAwarePaginator
     {
-        // dd (DB::table($this->table)
-        //     ->whereNull('deleted_at')
-        //     ->paginate($this->defaultPerPage));
         return DB::table($this->table)
             ->whereNull('deleted_at')
             ->paginate($this->defaultPerPage);
@@ -53,7 +50,7 @@ class UserRepository implements UserRepositoryInterface
     public function findPasswordById(int $id): ?stdClass
     {
         return DB::table($this->table)
-            ->select('password', 'social_media_id')
+            ->select('password')
             ->where('id', $id)
             ->first();
     }

@@ -3,7 +3,14 @@
 
 # Digimon API
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Laravel based API to suppot request and expand information for Digimons
+
+- Validate sodium ext at php.ini
+- Creation
+- composer require laravel/passport
+- run migrations
+- php artisan passport:install
+
 
 - [Simple, fast routing engine](https://laravel.com/docs/routing).
 - [Powerful dependency injection container](https://laravel.com/docs/container).
