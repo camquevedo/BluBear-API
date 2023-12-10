@@ -10,6 +10,7 @@ use App\Models\Api\V1\Users\UserRole;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Auth\Events\Registered;
 
 use stdClass;
 
@@ -126,6 +127,8 @@ class UserService extends DSUserService implements UserServiceInterface
         $newEntity->role = $role;
 
         if ($isSaved) {
+            event(new Registered($newEntity));
+
             static::sendMail(
                 NewUserMail::class,
                 [$newEntity->email],

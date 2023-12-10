@@ -13,6 +13,7 @@ use App\Packages\ApiResponse\ApiResponseBuilder;
 
 use App\Services\Api\V1\Users\User\Interfaces\UserServiceInterface;
 use App\Services\Api\V1\Users\User\Interfaces\UserLoginServiceInterface;
+use Inertia\Inertia;
 
 class UserController extends Controller
 {
@@ -157,6 +158,7 @@ class UserController extends Controller
      */
     public function create(Request $request)
     {
+        return 'hola';
         $parameters = $request->only(array_keys($this->properties));
         $validator = Validator::make($parameters, $this->properties);
         if ($validator->fails()) {
@@ -188,6 +190,10 @@ class UserController extends Controller
             )
             ->withData($data->items)
             ->build();
+    }
+
+    public function store () {
+        return Inertia::render('Users/Create');
     }
 
     /**
@@ -273,6 +279,42 @@ class UserController extends Controller
                 config('constants.messages.success.delete') .
                     $this->messageEntityName
             )
+            ->withData($data->items)
+            ->build();
+    }
+
+    public function verificateMail(Request $request)
+    {
+        $properties = [
+            'email' => 'email|required'
+        ];
+
+        $parameters = $request->only(array_keys($properties));
+        $validator = Validator::make($parameters, $properties);
+        if ($validator->fails()) {
+            return ApiResponseBuilder::builder()
+                ->withCode(Response::HTTP_BAD_REQUEST)
+                ->withMessage(config('constants.messages.error.validation'))
+                ->withData($validator->errors())
+                ->build();
+        }
+
+        $serviceResponse = $this->loginService->sendResetPasswordEmail(
+            arrayToObject($parameters)
+        );
+        $data = $serviceResponse->getData();
+
+        if ($serviceResponse->getStatusCode() != Response::HTTP_OK) {
+            return ApiResponseBuilder::builder()
+                ->withCode($serviceResponse->getStatusCode())
+                ->withMessage(config('constants.messages.error.general'))
+                ->withData($data)
+                ->build();
+        }
+
+        return ApiResponseBuilder::builder()
+            ->withCode($serviceResponse->getStatusCode())
+            ->withMessage(config('constants.messages.success.general'))
             ->withData($data->items)
             ->build();
     }
