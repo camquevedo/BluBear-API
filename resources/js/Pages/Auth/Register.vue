@@ -7,15 +7,20 @@ import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
 const form = useForm({
-    name: '',
-    email: '',
-    password: '',
-    password_confirmation: '',
+    details: {
+        firstName: '',
+        lastName: '',
+        email: '',
+    },
+    properties: {
+        password: '',
+        passwordConfirmation: '',
+    },
 });
 
 const submit = () => {
-    form.post(route('register'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
+    form.post(route('user/register'), {
+        onFinish: () => form.reset('password', 'passwordConfirmation'),
     });
 };
 </script>
@@ -26,29 +31,45 @@ const submit = () => {
 
         <form @submit.prevent="submit">
             <div>
-                <InputLabel for="name" value="Name" />
+                <InputLabel for="firstName" value="Firstt Name" />
 
                 <TextInput
-                    id="name"
+                    id="firstName"
                     type="text"
                     class="mt-1 block w-full"
-                    v-model="form.name"
+                    v-model="form.details.firstName"
                     required
                     autofocus
-                    autocomplete="name"
+                    autocomplete="firstName"
                 />
 
-                <InputError class="mt-2" :message="form.errors.name" />
+                <InputError class="mt-2" :message="form.errors.firstName" />
             </div>
 
             <div class="mt-4">
-                <InputLabel for="email" value="Email" />
+                <InputLabel for="lastName" value="Last Name" />
 
                 <TextInput
-                    id="email"
+                    id="lastName"
+                    type="text"
+                    class="mt-2 block w-full"
+                    v-model="form.details.lastName"
+                    required
+                    autofocus
+                    autocomplete="lastName"
+                />
+
+                <InputError class="mt-2" :message="form.errors.lastName" />
+            </div>
+
+            <div class="mt-4">
+                <InputLabel for="details.email" value="Email" />
+
+                <TextInput
+                    id="details.email"
                     type="email"
                     class="mt-1 block w-full"
-                    v-model="form.email"
+                    v-model="form.details.email"
                     required
                     autocomplete="username"
                 />
@@ -57,13 +78,13 @@ const submit = () => {
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password" value="Password" />
+                <InputLabel for="properties.password" value="Password" />
 
                 <TextInput
-                    id="password"
+                    id="properties.password"
                     type="password"
                     class="mt-1 block w-full"
-                    v-model="form.password"
+                    v-model="form.properties.password"
                     required
                     autocomplete="new-password"
                 />
@@ -72,18 +93,18 @@ const submit = () => {
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password_confirmation" value="Confirm Password" />
+                <InputLabel for="properties.passwordConfirmation" value="Confirm Password" />
 
                 <TextInput
-                    id="password_confirmation"
+                    id="properties.passwordConfirmation"
                     type="password"
                     class="mt-1 block w-full"
-                    v-model="form.password_confirmation"
+                    v-model="form.properties.passwordConfirmation"
                     required
                     autocomplete="new-password"
                 />
 
-                <InputError class="mt-2" :message="form.errors.password_confirmation" />
+                <InputError class="mt-2" :message="form.errors.passwordConfirmation" />
             </div>
 
             <div class="flex items-center justify-end mt-4">
