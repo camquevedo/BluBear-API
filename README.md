@@ -7,9 +7,7 @@ Laravel based API to suppot request and expand information for Digimons
 
 - Validate sodium ext at php.ini
 - Creation
-- composer require laravel/passport
 - run migrations
-- php artisan passport:install
 
 
 - [Simple, fast routing engine](https://laravel.com/docs/routing).

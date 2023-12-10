@@ -22,7 +22,7 @@ trait MailingTrait
             return false;
         }
 
-        $city = self::getCityById($cityId ?? $config['mailDefaultCityId']);
+        $city = self::getCityById($cityId ?? null);
         if (!$city) {
             self::saveLogMail(
                 'SEND_EMAIL_GET_CITY',
