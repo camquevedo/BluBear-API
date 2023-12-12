@@ -25,7 +25,8 @@ class DigimonRepository implements DigimonRepositoryInterface
 
     public function findAll($page): LengthAwarePaginator | stdClass
     {
-        $url = $this->basePath . '/digimon?page=' . $page;
+        $url = $this->basePath . '/digimon?page=' . $page . '&pageSize=10';
+        // $url = $this->basePath . '/digimon?page=' . $page;
         $request = Http::get($url);
 
         return $request->object();

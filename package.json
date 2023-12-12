@@ -20,6 +20,7 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^6.5.1",
+        "@ocrv/vue-tailwind-modal": "^1.0.0",
         "@ocrv/vue-tailwind-pagination": "^0.0.4",
         "chart.js": "^4.4.1",
         "datatables.net": "^1.13.8",

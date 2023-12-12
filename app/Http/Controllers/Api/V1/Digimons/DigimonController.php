@@ -54,11 +54,6 @@ class DigimonController extends Controller
             ->build();
     }
 
-    public function index(Request $request) {
-        $digimons = $this->getAll($request);
-        return Inertia::render('Digimons/Index', ['digimons' => $digimons, 'page' => $page ?? 1]);
-    }
-
     /**
      * Display the specified resource.
      */
