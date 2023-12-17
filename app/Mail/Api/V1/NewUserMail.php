@@ -26,8 +26,11 @@ class NewUserMail extends Mailable
         $mailFromName = $this->config['mailFromName'];
         $mailFromEmail = $this->config['mailFromEmail'];
 
-        return $this->markdown('Api.V1.mailnewuser')
-            ->subject('Gracias por registrarte en LaLicorera.com')
+        // return $this->markdown('Api.V1.mailnewuser')
+        //     ->subject('Gracias por registrarte en digimon.dev-camquevedo.uk')
+        //     ->from($mailFromEmail, $mailFromName);
+        return $this->markdown('welcome')
+            ->subject('Gracias por registrarte en digimon.dev-camquevedo.uk')
             ->from($mailFromEmail, $mailFromName);
     }
 }

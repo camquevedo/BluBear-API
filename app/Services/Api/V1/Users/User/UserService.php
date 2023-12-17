@@ -128,7 +128,6 @@ class UserService extends DSUserService implements UserServiceInterface
 
         if ($isSaved) {
             event(new Registered($newEntity));
-
             static::sendMail(
                 NewUserMail::class,
                 [$newEntity->email],

@@ -1,27 +1,44 @@
 <script setup>
-import GuestLayout from '@/Layouts/GuestLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import GuestLayout from "@/Layouts/GuestLayout.vue";
+import InputError from "@/Components/InputError.vue";
+import InputLabel from "@/Components/InputLabel.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import TextInput from "@/Components/TextInput.vue";
+import { Head, Link, useForm } from "@inertiajs/vue3";
 
 const form = useForm({
     details: {
-        firstName: '',
-        lastName: '',
-        email: '',
+        firstName: "",
+        lastName: "",
+        email: "",
     },
     properties: {
-        password: '',
-        passwordConfirmation: '',
+        password: "",
+        passwordConfirmation: "",
     },
 });
+const operation = ref(1);
 
 const submit = () => {
-    form.post(route('user/register'), {
-        onFinish: () => form.reset('password', 'passwordConfirmation'),
-    });
+    if(operation.value == 1){
+        form.post(route('users.register'),{
+            onSuccess: (resp) => {
+                ok(resp);
+            },
+        });
+    }
+    else{
+        form.put(route('users.update',id.value),{
+            onSuccess: (resp) => {
+                ok(resp);
+            },
+        });
+    }
+};
+const ok = (msj) =>{
+    form.reset();
+    closeModal();
+    Swal.fire({title:msj,icon:'success'});
 };
 </script>
 
@@ -93,7 +110,10 @@ const submit = () => {
             </div>
 
             <div class="mt-4">
-                <InputLabel for="properties.passwordConfirmation" value="Confirm Password" />
+                <InputLabel
+                    for="properties.passwordConfirmation"
+                    value="Confirm Password"
+                />
 
                 <TextInput
                     id="properties.passwordConfirmation"
@@ -104,7 +124,10 @@ const submit = () => {
                     autocomplete="new-password"
                 />
 
-                <InputError class="mt-2" :message="form.errors.passwordConfirmation" />
+                <InputError
+                    class="mt-2"
+                    :message="form.errors.passwordConfirmation"
+                />
             </div>
 
             <div class="flex items-center justify-end mt-4">
@@ -115,7 +138,11 @@ const submit = () => {
                     Already registered?
                 </Link>
 
-                <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <PrimaryButton
+                    class="ms-4"
+                    :class="{ 'opacity-25': form.processing }"
+                    :disabled="form.processing"
+                >
                     Register
                 </PrimaryButton>
             </div>

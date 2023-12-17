@@ -1,5 +1,6 @@
 <script setup>
 import GuestLayout from "@/Layouts/GuestLayout.vue";
+import DigimonLayout from "@/Layouts/DigimonLayout.vue";
 
 import DigiGridCards from "./Components/GridCards.vue";
 import Checkbox from "@/Components/Checkbox.vue";
@@ -21,20 +22,6 @@ const props = defineProps({
 });
 
 var digimonsREST = ref({});
-// const digimons = [
-//     {
-//         id: 5,
-//         type: 'azul'
-//     },
-//     {
-//         id: 1,
-//         level: 1
-//     },
-//     {
-//         id: 3,
-//         attribute: 'Navidad'
-//     },
-// ];
 const form = useForm({
     id: "",
 }); // Edgar
@@ -73,14 +60,14 @@ const closeModal = () => {
 const save = () => {
     if (operation.value == 1) {
         form.post(route("employees.store"), {
-            onSuccess: () => {
-                ok("Employee created");
+            onSuccess: (resp) => {
+                ok(resp);
             },
         });
     } else {
         form.put(route("employees.update", id.value), {
-            onSuccess: () => {
-                ok("Employee updated");
+            onSuccess: (resp) => {
+                ok(resp);
             },
         });
     }
@@ -137,12 +124,9 @@ watch(
 </script>
 
 <template>
-    <GuestLayout>
-        <Head title="Log in" />
-        <p>{{ digimonsREST.value }}</p>
-        <p>{{ digimons.original.pagination }}</p>
+    <DigimonLayout>
+        <Head title="Digimon index" />
         <DigiGridCards :digimons="digimons.original.data" />
-        <!-- <VueTailwindPagination :current="digimons" :total="digimons" /> -->
         <div
             class="flex flex-wrap gap-4 pb-10 place-content-center bg-neutral-100 pt-6"
         >
@@ -153,5 +137,5 @@ watch(
                 @page-changed="onPageClick($event)"
             />
         </div>
-    </GuestLayout>
+    </DigimonLayout>
 </template>

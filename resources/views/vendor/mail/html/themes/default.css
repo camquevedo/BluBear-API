@@ -1,0 +1,900 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+/* Base */
+
+body,
+body *:not(html):not(style):not(br):not(tr):not(code) {
+    font-family: Avenir, Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    color: rgb(255, 255, 255);
+    height: 100%;
+    hyphens: auto;
+    line-height: 1.4;
+    margin: 0;
+    -moz-hyphens: auto;
+    -ms-word-break: break-all;
+    width: 100% !important;
+    -webkit-hyphens: auto;
+    -webkit-text-size-adjust: none;
+    word-break: break-all;
+    word-break: break-word;
+}
+
+p,
+ul,
+ol,
+blockquote {
+    line-height: 1.4;
+    text-align: left;
+}
+
+a {
+    color: #3869D4;
+}
+
+.footext a {
+    color: rgb(255, 255, 255);
+}
+
+.footext {
+    font-size: 9px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+a img {
+    border: none;
+}
+
+
+/* Typography */
+
+h1 {
+    color: #22396B;
+    font-size: 16px;
+    margin-top: 0;
+    text-align: left;
+    font-weight: lighter;
+}
+
+h2 {
+    color: #22396B;
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 0;
+    text-align: left;
+}
+
+h3 {
+    color: #22396B;
+    font-size: 11px;
+    margin-top: 0;
+    text-align: left;
+    font-weight: lighter;
+}
+
+p {
+    color: #74787E;
+    font-size: 16px;
+    line-height: 1.5em;
+    margin-top: 0;
+    text-align: left;
+}
+
+p.sub {
+    font-size: 12px;
+}
+
+img {
+    max-width: 100%;
+}
+
+
+/* Layout */
+
+.wrapper {
+    background-color: #f5f8fa;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 100%;
+}
+
+.content {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 100%;
+}
+
+
+/* Header */
+
+.mail_navigation-bar {
+    background-color: #ffffff;
+    height: auto;
+    width: 100%;
+    text-align: center;
+}
+
+#mail_navigation-container {
+    width: 100%;
+    margin: 0 auto;
+    height: auto;
+}
+
+.logo_nav {
+    width: 40%;
+    float: left;
+}
+
+.text_nav {
+    width: 60%;
+    height: 52px;
+    float: right;
+}
+
+.logo {
+    float: center;
+    height: 55px;
+}
+
+.text_nav ul {
+    text-align: right;
+    padding: 0px;
+}
+
+.text_nav li {
+    list-style-type: none;
+    padding: 0px;
+    display: inline;
+}
+
+.mail_navigation-bar li a {
+    color: #22396B;
+    font-size: 10px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 5px 5px;
+}
+
+.border {
+    border-right: 2px solid #22396B;
+}
+
+
+/*Banner*/
+
+.banner {
+    width: 100%;
+    margin-top: 20px;
+    overflow: hidden; /* Ensures the image doesn't overflow the div */
+}
+
+.banner img {
+    width: 100%;
+    height: auto; /* Maintains the aspect ratio of the image */
+    object-fit: cover; /* Fits the image to the container, cropping if necessary */
+}
+
+.banner-img {
+    width: 100%;
+    margin-top: 20px;
+}
+
+
+/*Main text*/
+
+.main_text {
+    padding: 0px 20px;
+    text-align: justify;
+}
+
+.button-brown {
+    background-color: #ac7b2f;
+    border-top: 10px solid #ac7b2f;
+    border-right: 18px solid #ac7b2f;
+    border-bottom: 10px solid #ac7b2f;
+    border-left: 18px solid #ac7b2f;
+    font-weight: bold;
+    text-align: center;
+}
+
+.benefits-container-mail,
+.benefits-container-mail table {
+    width: 100%;
+    height: auto;
+    background-color: #f3f2f2;
+}
+
+.benefits-container-mail th {
+    width: 33vw;
+}
+
+.benefits_mail img {
+    color: #22396B;
+    transform: translate(0, 12px);
+}
+
+.benefits_mail h1 {
+    margin-top: 20px;
+    margin-bottom: 25px;
+    text-align: center;
+    color: #22396B;
+    font-size: 11px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    width: 100%;
+}
+
+.border-ben {
+    border-right: 1px solid #d0d1d3;
+    text-decoration: none;
+}
+
+.article_mail {
+    background-color: #ffffff;
+    height: auto;
+    width: 100%;
+    text-align: center;
+}
+
+#article_mail-container {
+    width: 100%;
+    margin: 0 auto;
+    height: auto;
+}
+
+.article_photo {
+    width: 30%;
+    float: left;
+    height: 100%;
+    margin-top: 16px;
+    margin-left: 16px;
+}
+
+.article_text {
+    width: 50%;
+    height: 200px;
+    float: right;
+    margin-top: 16px;
+}
+
+.photo_art {
+    float: center;
+    height: 100%;
+    content: url("https://api.lalicorera.com/img/extras/us-mail.png");
+}
+
+.article_text h1 {
+    color: #22396B;
+    font-size: 11px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 5px 5px;
+}
+
+.icons {
+    background-color: #ffffff;
+    height: auto;
+    width: 100%;
+    text-align: center;
+}
+
+#icons-container {
+    width: 100%;
+    margin: 0 auto;
+    height: auto;
+}
+
+.partner_mail {
+    width: 50%;
+    height: 60px;
+    padding: 5px 5px;
+    float: left;
+    background-color: #f3f2f2;
+    border-radius: 0 30px 0 0;
+    color: black;
+    font-size: 11px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    margin-top: 30px;
+}
+
+.partner_mail img {
+    transform: translate(0, 5px);
+}
+
+.social_mail {
+    width: 50%;
+    height: 60px;
+    padding: 5px;
+    float: right;
+    color: #22396B;
+    font-size: 11px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    margin-top: 30px;
+}
+
+.social_mail_links {
+    transform: translate(0, 5px);
+}
+
+.social_mail_links img {
+    height: 20px;
+}
+
+.partner_mail ul {
+    text-align: center;
+    padding: 0px;
+}
+
+.partner_mail li {
+    list-style-type: none;
+    padding: 0px;
+    display: inline;
+}
+
+.social_mail ul {
+    text-align: center;
+    padding: 0px;
+}
+
+.social_mail li {
+    list-style-type: none;
+    padding: 0px;
+    display: inline;
+}
+
+.fa {
+    font-size: 1px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 50%;
+    padding: 2px;
+}
+
+.fa:hover {
+    opacity: 0.7;
+}
+
+
+/*PRODUCTS*/
+
+.order-mail {
+    width: 100%;
+    padding: 0px 0px;
+}
+
+.order-mail ul {
+    text-decoration: none;
+    list-style-type: none;
+    padding-left: 1px;
+}
+
+.order-mail li {
+    margin: -10px 0;
+}
+
+.order-mail img {
+    color: #22396B;
+    transform: translate(0, 12px);
+}
+
+.order-mail tr {
+    height: 102px;
+    width: 100%;
+}
+
+.border-ord {
+    border-bottom: 4px solid #22396B;
+    width: 100%;
+}
+
+.order-mail h4 {
+    color: #22396B;
+    font-size: 18px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    margin-bottom: 0px;
+    text-align: left;
+}
+
+.order-mail h3 {
+    color: #22396B;
+    font-size: 16px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    margin-bottom: 0px;
+}
+
+.order-mail th {
+    width: 30%;
+    vertical-align: middle;
+    border-right: 1px solid #d0d1d3;
+}
+
+.order-mail td {
+    width: 70%;
+    vertical-align: initial;
+}
+
+.general-info {
+    width: 100%;
+    border-bottom: 8px solid #ac7b2f;
+    margin-top: 40px;
+    padding: 0px 0px;
+}
+
+.general-info #order {
+    text-align: left;
+}
+
+.general-info #date {
+    text-align: right;
+}
+
+.general-info h1 {
+    color: #22396B;
+    font-size: 16px;
+    margin-top: 0;
+    font-weight: lighter;
+}
+
+.general-info th {
+    color: #22396B;
+    font-size: 16px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+.order-products-mail {
+    width: 100%;
+    background-color: #EDEFF2;
+    margin-top: 20px;
+}
+
+.order-products-table {
+    border-bottom: 0.3px solid #d0d1d3;
+    border-top: 0.3px solid #d0d1d3;
+    width: 100%;
+}
+
+.order-products-mail li {
+    list-style-type: none;
+}
+
+.product-order-mail-img {
+    height: 120px;
+}
+
+.quant-cont {
+    width: 70px;
+    background-color: white;
+    text-align: center;
+    border-radius: 4px;
+    height: 30px;
+    padding-top: 5px;
+}
+
+.order-products-table ul {
+    padding: 0px;
+}
+
+.subtot-info {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    padding: 0px 0px;
+    border-bottom: 1px solid #d0d1d3;
+}
+
+.subtot-info th {
+    width: 50vw;
+}
+
+.subtot-info td {
+    width: 50vw;
+}
+
+.subtot-info th h3 {
+    text-align: left;
+    font-size: 13px;
+}
+
+.subtot-info td h3 {
+    text-align: right;
+    font-size: 13px;
+}
+
+.order-products-container {
+    width: 100%;
+}
+
+.order-products-image th {
+    width: 33vw;
+}
+
+.order-products-info th {
+    width: 46vw;
+}
+
+.order-products-quant th {
+    width: 20vw;
+    margin-top: 16px;
+    vertical-align: top;
+}
+
+.order-products-packings {
+    background: white;
+    padding: auto;
+    max-width: 180px;
+    margin-top: 10px;
+    border-radius: 3px;
+    padding: 10px;
+}
+.order-products-packings h1 {
+    color: #22396B;
+    font-size: 12px;
+    margin-top: 0;
+}
+
+
+/* The hero image */
+
+.header {
+    width: 100%;
+}
+
+.header img {
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+    display: block;
+}
+
+
+/* Body */
+
+.body {
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #EDEFF2;
+    border-top: 1px solid #EDEFF2;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 100%;
+}
+
+.inner-body {
+    background-color: #FFFFFF;
+    margin: 0 auto;
+    padding: 0;
+    width: 570px;
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 570px;
+}
+
+
+/* Subcopy */
+
+.subcopy {
+    border-top: 1px solid #EDEFF2;
+    margin-top: 25px;
+    padding-top: 25px;
+}
+
+.subcopy p {
+    font-size: 12px;
+}
+
+
+/* Footer */
+
+.footer1 {
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 100%;
+    background-color: #22396B;
+}
+
+.footer2 {
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 100%;
+    background-color: rgb(22, 22, 22);
+}
+
+.footer1 td {
+    color: rgb(255, 255, 255);
+    font-size: 9px;
+    text-align: center;
+}
+
+.footer2 td {
+    color: rgb(255, 255, 255);
+    font-size: 9px;
+    text-align: center;
+}
+
+
+/* Tables */
+
+.table table {
+    margin: 30px auto;
+    width: 100%;
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 100%;
+}
+
+.imabene1 {
+    width: 40px;
+    height: auto;
+    margin: auto;
+    display: block;
+}
+
+.imabene2 {
+    width: 40px;
+    height: auto;
+    margin: auto;
+    display: block;
+}
+
+.imabene3 {
+    width: 40px;
+    height: auto;
+    margin: auto;
+    display: block;
+}
+
+.table {
+    width: 100%;
+}
+
+.table td {
+    color: #22396B;
+    padding-bottom: 8px;
+    margin: 0;
+    width: 33%;
+}
+
+#bordertable {
+    border-right: 2px solid rgb(170, 172, 179);
+}
+
+.text-services {
+    text-align: center;
+    margin: auto;
+}
+
+.content-cell {
+    padding-top: 35px;
+}
+
+.content-cell-foot {
+    width: 100vw;
+    padding: 20px;
+    background-color: #22396B;
+}
+
+.content-cell-foot2 {
+    padding: 7px;
+}
+
+
+/* Buttons */
+
+.action {
+    margin: 30px auto;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 100%;
+}
+
+.button {
+    border-radius: 3px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16);
+    color: #FFF;
+    display: inline-block;
+    text-decoration: none;
+    -webkit-text-size-adjust: none;
+}
+
+.button-blue {
+    background-color: #3097D1;
+    border-top: 10px solid #3097D1;
+    border-right: 18px solid #3097D1;
+    border-bottom: 10px solid #3097D1;
+    border-left: 18px solid #3097D1;
+}
+
+.button-green {
+    background-color: #2ab27b;
+    border-top: 10px solid #2ab27b;
+    border-right: 18px solid #2ab27b;
+    border-bottom: 10px solid #2ab27b;
+    border-left: 18px solid #2ab27b;
+}
+
+.button-red {
+    background-color: #bf5329;
+    border-top: 10px solid #bf5329;
+    border-right: 18px solid #bf5329;
+    border-bottom: 10px solid #bf5329;
+    border-left: 18px solid #bf5329;
+}
+
+
+/* Panels */
+
+.panel {
+    margin: 0 0 21px;
+}
+
+.panel-content {
+    background-color: #EDEFF2;
+    padding: 16px;
+}
+
+.panel-item {
+    padding: 0;
+}
+
+.panel-item p:last-of-type {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+
+/* Promotions */
+
+.promotion {
+    background-color: #FFFFFF;
+    border: 2px dashed #9BA2AB;
+    margin: 0;
+    margin-bottom: 25px;
+    margin-top: 25px;
+    padding: 24px;
+    width: 100%;
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 100%;
+}
+
+.promotion h1 {
+    text-align: center;
+}
+
+.promotion p {
+    font-size: 15px;
+    text-align: center;
+}
+
+.egift-title h2 {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-color: #ffffff;
+    height: auto;
+    width: 100%;
+    text-align: center;
+    color: #22396B;
+    font-size: 50px;
+    margin: 0;
+}
+.egift-subtitle h1 {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-color: #ffffff;
+    height: auto;
+    width: 100%;
+    text-align: center;
+    color: #22396B;
+    margin: 0;
+}
+#egift-subtitle-text h1 {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: rgb(90, 90, 90);
+    font-weight: bold;
+    font-size: 25px;
+}
+
+#egift-subtitle-price h1 {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: #bb7411;
+    font-size: 50px;
+    font-weight: bold;
+}
+.banner-egiftcard {
+    height: 30%;
+}
+
+.banner-egiftcard img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 30px;
+}
+
+.main_text-egiftcard h1 {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin-top: 50px;
+    padding: 0px 20px;
+    text-align: center;
+    color: black;
+}
+
+.egift-info {
+    width: 100%;
+    padding: 15px 15px;
+    background-color: #a5b2c6;
+    border-radius: 20px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+.egift-info h1 {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: black;
+    font-size: 25px;
+    text-align: center;
+    font-weight: bold;
+    margin: 0;
+}
+.egift-info h2 {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: rgb(51, 51, 51);
+    font-size: 15px;
+    text-align: center;
+    margin: 0;
+}
+
+.button-egift {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    width: 100%;
+    height: 50px;
+}
+
+.button-egift button {
+    margin: 0;
+    background-color:#22396B;
+    padding: 0px;
+    width: 200px;
+    border-radius: 12px;
+}
+.button-egift button h1 {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    font-size: 30px;
+    margin: 0;
+    padding: 5px;
+}
+.logo_egift {
+    margin-top: 15px;
+    width: 100%;
+}
+.logo_e {
+    height: 100px;
+}

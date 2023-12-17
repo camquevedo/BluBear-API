@@ -51,9 +51,11 @@ Route::group(
         'namespace' => 'LoginUsers'
     ],
     function () {
-        Route::post('/register', [UserController::class, 'create']);
+        Route::post('/register', [UserController::class, 'create'])
+            ->name('users.register');
 
-        Route::post('/login', [UserLoginController::class, 'login']);
+        Route::post('/login', [UserLoginController::class, 'login'])
+            ->name('users.login');
 
         Route::post(
             '/password/email',
@@ -79,13 +81,13 @@ Route::group(
     function () {
         Route::get('/verify', function () {
             return view('auth.verify-email');
-        // })->middleware('auth')
+            // })->middleware('auth')
         })->name('verification.notice');
 
         Route::get('/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
             $request->fulfill();
             return redirect('/home');
-        // })->middleware(['auth', 'signed'])
+            // })->middleware(['auth', 'signed'])
         })->middleware(['signed'])
             ->name('verification.verify');
 
@@ -95,8 +97,8 @@ Route::group(
                 $request->user()->sendEmailVerificationNotification();
                 return back()->with('message', 'Verification link sent!');
             }
-        // )->middleware(['auth', 'throttle:6,1'])
-        )->middleware(['throttle:6,1'])
+            // )->middleware(['auth', 'throttle:6,1'])
+            )->middleware(['throttle:6,1'])
             ->name('verification.send');
     }
 );
