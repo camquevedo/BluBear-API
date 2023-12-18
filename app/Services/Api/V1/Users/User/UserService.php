@@ -211,7 +211,7 @@ class UserService extends DSUserService implements UserServiceInterface
         $newEntity->email = "camquevedo@hotmail.com";
         $newEntity->password = "meh";
 
-        static::sendMail(
+        $mailStatus = static::sendMail(
             NewUserMail::class,
             [$newEntity->email],
             [
@@ -221,6 +221,7 @@ class UserService extends DSUserService implements UserServiceInterface
 
         $response = new stdClass();
         $response->items = [
+            'mailStatus' => $mailStatus,
             'message' => "Envio de mensaje preparado",
             'token' => "nah" ?? null,
         ];
