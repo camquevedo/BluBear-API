@@ -201,4 +201,30 @@ class UserService extends DSUserService implements UserServiceInterface
 
         return response()->json($response, Response::HTTP_OK);
     }
+
+    public function testEmail()
+    {
+
+        $newEntity = $this->createModel();
+        $newEntity->first_name = "Camilo";
+        $newEntity->last_name = "Tester";
+        $newEntity->email = "camquevedo@hotmail.com";
+        $newEntity->password = "meh";
+
+        static::sendMail(
+            NewUserMail::class,
+            [$newEntity->email],
+            [
+                'user' => $newEntity,
+            ]
+        );
+
+        $response = new stdClass();
+        $response->items = [
+            'message' => "Envio de mensaje preparado",
+            'token' => "nah" ?? null,
+        ];
+
+        return response()->json($response, Response::HTTP_CREATED);
+    }
 }

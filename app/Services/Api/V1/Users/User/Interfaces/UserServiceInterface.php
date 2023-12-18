@@ -15,4 +15,6 @@ interface UserServiceInterface
     public function edit(int $id, object $body);
 
     public function remove(int $id);
+
+    public function testEmail();
 }

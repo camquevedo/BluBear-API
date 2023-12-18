@@ -51,6 +51,9 @@ Route::group(
         'namespace' => 'LoginUsers'
     ],
     function () {
+        Route::post('/email/test', [UserController::class, 'create'])
+            ->name('users.testEmail');
+
         Route::post('/register', [UserController::class, 'create'])
             ->name('users.register');
 
