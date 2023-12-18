@@ -317,4 +317,29 @@ class UserController extends Controller
             ->withData($data->items)
             ->build();
     }
+
+    public function testEmail()
+    {
+        $serviceResponse = $this->service->testEmail();
+        $data = $serviceResponse->getData();
+
+        if ($serviceResponse->getStatusCode() != Response::HTTP_CREATED) {
+            return ApiResponseBuilder::builder()
+                ->withCode($serviceResponse->getStatusCode())
+                ->withMessage(
+                    config('constants.messages.error.entityNotCreated')
+                )
+                ->withData($data)
+                ->build();
+        }
+
+        return ApiResponseBuilder::builder()
+            ->withCode($serviceResponse->getStatusCode())
+            ->withMessage(
+                config('constants.messages.success.save') .
+                    $this->messageEntityName
+            )
+            ->withData($data->items)
+            ->build();
+    }
 }
