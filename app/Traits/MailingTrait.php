@@ -16,7 +16,7 @@ trait MailingTrait
         array $emails = [],
         array $elements = [],
         int $cityId = null
-    ): bool {
+    ): bool | String {
         $config = config('constants.mailing');
         if (!$config['sendMails'] || !$emails) {
             return false;

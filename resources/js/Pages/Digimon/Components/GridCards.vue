@@ -2,23 +2,15 @@
 import DigiCard from './Card.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import { onMounted, onBeforeUnmount } from 'vue';
-import ModalComp from '@/Components/Modal.vue';
-// import Modal from 'vendor/laravel/breeze/stubs/inertia-vue/resources/js/Components/Modal.vue';
+import Modal from '@/Components/Modal.vue';
 import VueTailwindModal from '@ocrv/vue-tailwind-modal'
 import { ref } from 'vue';
+import SecondaryButton from '@/Components/SecondaryButton.vue';
 
-// const digimonForm = useForm({
-//     email: '',
-//     password: '',
-//     remember: false,
-// });
+var visibleModal = ref(false);
+var digimonDetail = null;
 
-const submit = () => {
-    form.post(route('login'), {
-        onFinish: () => form.reset('password'),
-    });
-};
-const modal = ref(false);
+const emit = defineEmits(['getDigimon'])
 const props = defineProps({
     digimons: {
         type: Array,
@@ -39,11 +31,11 @@ const props = defineProps({
     },
 });
 
-const openModal = (op, digimonDetail) => {
-    modal.value = true;
+const openModal = () => {
+    visibleModal.value = true;
 }
-const closeModal = (op, digimonDetail) => {
-    modal.value = false;
+const closeModal = () => {
+    visibleModal.value = false;
 }
 
 const read = (id) => {
@@ -53,8 +45,9 @@ const read = (id) => {
     }
 }
 
-const ok = (msj) => {
-    closeModal();
+const getDigimonById = ( digimon ) => {
+    openModal();
+    digimonDetail = digimon;
 }
 
 onMounted(() => {
@@ -66,8 +59,20 @@ onBeforeUnmount(() => {});
 <template>
     <Head title="DigiGridCard" />
     <div class="flex flex-wrap gap-4 pb-10 place-content-center bg-neutral-100 pt-6">
-        <DigiCard v-for="digimon in digimons" :digimon="digimon" :detailsFlag="false" />
+        <DigiCard @getDigimonById="getDigimonById(digimon)" v-for="digimon in digimons" :digimon="digimon" :detailsFlag="false"/>
     </div>
+    
+    <Modal :show="visibleModal" @close="">
+        <div class="w-max mx-auto">
+            <DigiCard :digimon="digimonDetail" :detailsFlag="true"/>
+        </div>
+        <div class="p-3 mt-6 flex justify-end">
+            <SecondaryButton class="ml-3" :disabled="false"
+            @click="closeModal">
+                Cancel
+            </SecondaryButton>
+        </div>
+    </Modal>
 </template>
 
 <style>

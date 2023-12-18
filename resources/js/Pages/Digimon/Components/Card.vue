@@ -23,6 +23,7 @@ defineProps({
     <div
         id="digiCard"
         class="flex flex-wrap min-w-min max-w-sm rounded overflow-hidden shadow-lg grid grid-rows-1 place-content-center py-4 bg-white px-6 space-x-1 space-y-1"
+        @click="$emit('getDigimonById', digimon.id)"
     >
         <!-- <p>{{digimon}}</p> -->
         <img
